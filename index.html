@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>HATS - Hata Anlık Takip Sistemi</title>
   
+  <!-- Web Uygulaması & Tam Ekran Meta Etiketleri -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="HATS">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#0f172a">
+
   <!-- CDN Kütüphaneleri -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -99,18 +106,19 @@
         <div id="login-logo-box" class="flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-900 text-white shadow-lg shadow-blue-900/30 mb-2.5 mx-auto">
           <span class="font-black text-xl tracking-tighter">HATS</span>
         </div>
-        <h1 id="login-title" class="text-base sm:text-lg font-black text-slate-900 tracking-tight leading-tight text-center">HATA ANLIK TAKİP SİSTEMİ</h1>
+        <h1 id="login-title" class="text-base sm:lg font-black text-slate-900 tracking-tight leading-tight text-center">HATA ANLIK TAKİP SİSTEMİ</h1>
         <p id="login-sub" class="text-[10px] sm:text-xs font-semibold text-slate-400 mt-0.5 uppercase tracking-wider text-center">Montaj Hattı Görsel Kontrol Portalı</p>
       </div>
 
-      <form onsubmit="handleLogin(event)" class="space-y-3">
+      <!-- Tarayıcı Parola Yöneticisi İçin Standard Form Yapısı -->
+      <form id="auth-form" method="POST" action="javascript:void(0);" autocomplete="on" onsubmit="handleLogin(event)" class="space-y-3">
         <div>
           <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1">Personel Sicil No</label>
           <div class="relative">
             <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 text-xs">
               <i class="fa-solid fa-id-card"></i>
             </span>
-            <input type="text" id="login-id" required placeholder="Sicil numaranızı giriniz" class="w-full bg-slate-50 border border-slate-300 rounded-xl py-2.5 pl-9 pr-3 text-xs sm:text-sm font-semibold text-slate-800 placeholder-slate-400 focus:bg-white focus:border-blue-700 focus:ring-2 focus:ring-blue-100 outline-none transition">
+            <input type="text" id="login-id" name="username" autocomplete="username" required placeholder="Sicil numaranızı giriniz" class="w-full bg-slate-50 border border-slate-300 rounded-xl py-2.5 pl-9 pr-3 text-xs sm:text-sm font-semibold text-slate-800 placeholder-slate-400 focus:bg-white focus:border-blue-700 focus:ring-2 focus:ring-blue-100 outline-none transition">
           </div>
         </div>
 
@@ -120,11 +128,19 @@
             <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 text-xs">
               <i class="fa-solid fa-lock"></i>
             </span>
-            <input type="password" id="login-pass" required placeholder="Şifrenizi giriniz" class="w-full bg-slate-50 border border-slate-300 rounded-xl py-2.5 pl-9 pr-10 text-xs sm:text-sm font-semibold text-slate-800 placeholder-slate-400 focus:bg-white focus:border-blue-700 focus:ring-2 focus:ring-blue-100 outline-none transition">
+            <input type="password" id="login-pass" name="password" autocomplete="current-password" required placeholder="Şifrenizi giriniz" class="w-full bg-slate-50 border border-slate-300 rounded-xl py-2.5 pl-9 pr-10 text-xs sm:text-sm font-semibold text-slate-800 placeholder-slate-400 focus:bg-white focus:border-blue-700 focus:ring-2 focus:ring-blue-100 outline-none transition">
             <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 text-xs">
               <i class="fa-solid fa-eye" id="toggle-pass-icon"></i>
             </button>
           </div>
+        </div>
+
+        <!-- BENİ HATIRLA ONAY KUTUSU -->
+        <div class="flex items-center justify-between pt-0.5">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="remember-me-checkbox" class="w-4 h-4 rounded text-blue-900 border-slate-300 focus:ring-blue-800">
+            <span class="text-xs font-bold text-slate-600 select-none">Beni Hatırla (Oto Doldur)</span>
+          </label>
         </div>
 
         <div id="login-error" class="hidden p-2 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-[11px] font-semibold flex items-center gap-2">
@@ -307,7 +323,7 @@
       </div>
     </div>
 
-    <!-- KPI Kartları (Yatayda 4 Kolon) -->
+    <!-- KPI Kartları -->
     <div class="admin-kpi-grid grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
       <div class="admin-kpi-card bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-slate-200">
         <div class="flex items-center justify-between text-slate-400 mb-1">
@@ -634,7 +650,7 @@
 
   <!-- ================= 6. JAVASCRIPT MOTORU ================= -->
   <script>
-    /* TÜRKİYE YEREL SAATİNİ (00:00 - 23:59) KESİN HESAPLAYAN YARDIMCI FONKSİYON */
+    /* TÜRKİYE YEREL SAATİ (00:00 - 23:59) */
     function getLocalDateString(d = new Date()) {
       const year = d.getFullYear();
       const month = String(d.getMonth() + 1).padStart(2, '0');
@@ -692,20 +708,44 @@
     let hourlyChartInstance = null;
     let teamChartInstance = null;
 
-    /* --- CANLI BULUT SENKRONİZASYON (MQTT) --- */
+    /* --- CİHAZ İÇİ ÇOKLU SEKME ANLIK SENKRONİZASYON --- */
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'hats_defect_logs') {
+        defectLogs = JSON.parse(e.newValue || '[]');
+        if (currentUser && currentUser.role === 'admin') renderAdminStats();
+        else if (currentUser) renderDefectsGrid();
+      }
+      if (e.key === 'hats_shift_reset_ts') {
+        shiftResetTimestamp = parseInt(e.newValue || '0');
+        if (currentUser && currentUser.role === 'operator') renderDefectsGrid();
+      }
+      if (e.key === 'hats_catalog' || e.key === 'hats_zones') {
+        zones = JSON.parse(localStorage.getItem('hats_zones') || JSON.stringify(defaultZones));
+        catalog = JSON.parse(localStorage.getItem('hats_catalog') || JSON.stringify(defaultCatalog));
+        if (currentUser && currentUser.role === 'operator') {
+          renderZoneTabs();
+          renderDefectsGrid();
+        }
+      }
+    });
+
+    /* --- CANLI BULUT SENKRONİZASYON (HIVEMQ & MQTT) --- */
     const SYNC_TOPIC = "hats/montaj_hatti/arcelik_live_channel_2026";
-    const clientId = "hats_client_" + Math.random().toString(16).substring(2, 10);
+    const clientId = "hats_" + Math.random().toString(16).substring(2, 10);
     let mqttClient = null;
 
     function initCloudSync() {
       try {
-        mqttClient = mqtt.connect('wss://broker.emqx.io:8084/mqtt', {
-          clientId: clientId, clean: true, connectTimeout: 4000, reconnectPeriod: 3000
+        mqttClient = mqtt.connect('wss://broker.hivemq.com:8884/mqtt', {
+          clientId: clientId, clean: true, connectTimeout: 5000, reconnectPeriod: 3000
         });
+        
         mqttClient.on('connect', () => {
           updateCloudBadge(true);
           mqttClient.subscribe(SYNC_TOPIC);
+          broadcastCloudMessage({ action: 'REQUEST_SYNC' });
         });
+        
         mqttClient.on('message', (topic, payload) => {
           try {
             const msg = JSON.parse(payload.toString());
@@ -738,13 +778,37 @@
     }
 
     function handleIncomingCloudMessage(msg) {
-      if (msg.action === 'ADD_DEFECT') {
-        defectLogs.push(msg.defect);
-        localStorage.setItem('hats_defect_logs', JSON.stringify(defectLogs));
-        showToastNotification("Canlı Hat Girişi", `${msg.defect.operator} (${msg.defect.team}): ${msg.defect.defectName} (+1)`);
-        playClickFeedback(true);
-        if (currentUser && currentUser.role === 'admin') renderAdminStats();
-        else renderDefectsGrid();
+      if (msg.action === 'REQUEST_SYNC') {
+        if (defectLogs.length > 0) {
+          broadcastCloudMessage({ action: 'SYNC_RESPONSE', defectLogs: defectLogs });
+        }
+      } else if (msg.action === 'SYNC_RESPONSE') {
+        if (Array.isArray(msg.defectLogs)) {
+          const currentIds = new Set(defectLogs.map(l => l.id));
+          let hasNew = false;
+          msg.defectLogs.forEach(incomingLog => {
+            if (!currentIds.has(incomingLog.id)) {
+              defectLogs.push(incomingLog);
+              currentIds.add(incomingLog.id);
+              hasNew = true;
+            }
+          });
+          if (hasNew) {
+            defectLogs.sort((a, b) => a.id - b.id);
+            localStorage.setItem('hats_defect_logs', JSON.stringify(defectLogs));
+            if (currentUser && currentUser.role === 'admin') renderAdminStats();
+            else if (currentUser) renderDefectsGrid();
+          }
+        }
+      } else if (msg.action === 'ADD_DEFECT') {
+        if (!defectLogs.some(l => l.id === msg.defect.id)) {
+          defectLogs.push(msg.defect);
+          localStorage.setItem('hats_defect_logs', JSON.stringify(defectLogs));
+          showToastNotification("Canlı Hat Girişi", `${msg.defect.operator} (${msg.defect.team}): ${msg.defect.defectName} (+1)`);
+          playClickFeedback(true);
+          if (currentUser && currentUser.role === 'admin') renderAdminStats();
+          else if (currentUser) renderDefectsGrid();
+        }
       } else if (msg.action === 'ANDON_ALERT') {
         if (currentUser && currentUser.role === 'admin') {
           showToastNotification("ANDON KRİTİK ALARMI", `${msg.team} - ${msg.zoneName}: "${msg.defectName}" son 10 dakikada ${msg.count} kez tekrarlandı!`, true);
@@ -757,13 +821,13 @@
           defectLogs.splice(idx, 1);
           localStorage.setItem('hats_defect_logs', JSON.stringify(defectLogs));
           if (currentUser && currentUser.role === 'admin') renderAdminStats();
-          else renderDefectsGrid();
+          else if (currentUser) renderDefectsGrid();
         }
       } else if (msg.action === 'CLEAR_ALL') {
         defectLogs = [];
         localStorage.setItem('hats_defect_logs', '[]');
         if (currentUser && currentUser.role === 'admin') renderAdminStats();
-        else renderDefectsGrid();
+        else if (currentUser) renderDefectsGrid();
         showToastNotification("Veriler Sıfırlandı", "Tüm hata kayıtları sıfırlandı.");
       } else if (msg.action === 'CATALOG_SYNC') {
         zones = msg.zones;
@@ -834,7 +898,7 @@
       } catch (err) {}
     }
 
-    /* --- GİRİŞ & OTURUM --- */
+    /* --- KALICI OTURUM & BENİ HATIRLA --- */
     function togglePasswordVisibility() {
       const p = document.getElementById('login-pass');
       const i = document.getElementById('toggle-pass-icon');
@@ -842,44 +906,30 @@
       else { p.type = 'password'; i.className = 'fa-solid fa-eye'; }
     }
 
-    function handleLogin(e) {
-      e.preventDefault();
-      const id = document.getElementById('login-id').value.trim();
-      const pass = document.getElementById('login-pass').value.trim();
-      const err = document.getElementById('login-error');
-
-      const found = users.find(u => u.id === id && u.pass === pass);
-      if (!found) {
-        err.classList.remove('hidden');
-        document.getElementById('login-error-text').innerText = "Sicil veya şifre hatalı!";
-        return;
-      }
-
-      err.classList.add('hidden');
-      currentUser = found;
-
-      document.getElementById('session-user').innerText = `${found.name} (${found.id})`;
+    function applyUserSession(user) {
+      currentUser = user;
+      document.getElementById('session-user').innerText = `${user.name} (${user.id})`;
       const badge = document.getElementById('session-badge');
-      if (found.role === 'admin') {
+      if (user.role === 'admin') {
         badge.innerText = 'BEYAZ YAKA / ADMİN';
         badge.className = 'px-1.5 py-0.2 rounded text-[8px] font-black uppercase tracking-wider bg-purple-700 text-purple-100';
       } else {
-        badge.innerText = `OPERATÖR (${(found.team || 'Ekip 1').toUpperCase()})`;
+        badge.innerText = `OPERATÖR (${(user.team || 'Ekip 1').toUpperCase()})`;
         badge.className = 'px-1.5 py-0.2 rounded text-[8px] font-black uppercase tracking-wider bg-blue-800 text-blue-100';
       }
 
       document.getElementById('login-view').classList.add('hidden');
       document.getElementById('app-header').classList.remove('hidden');
 
-      if (found.role === 'admin') {
+      if (user.role === 'admin') {
         document.getElementById('admin-view').classList.remove('hidden');
         document.getElementById('operator-view').classList.add('hidden');
         renderAdminStats();
       } else {
         document.getElementById('operator-view').classList.remove('hidden');
         document.getElementById('admin-view').classList.add('hidden');
-        document.getElementById('op-current-name').innerText = found.name;
-        document.getElementById('op-current-team').innerText = found.team || 'Ekip 1';
+        document.getElementById('op-current-name').innerText = user.name;
+        document.getElementById('op-current-team').innerText = user.team || 'Ekip 1';
         
         const sortSelect = document.getElementById('op-sort-mode');
         if (sortSelect) sortSelect.value = currentSortMode;
@@ -890,14 +940,67 @@
       }
     }
 
+    function handleLogin(e) {
+      if (e) e.preventDefault();
+      const id = document.getElementById('login-id').value.trim();
+      const pass = document.getElementById('login-pass').value.trim();
+      const rememberMe = document.getElementById('remember-me-checkbox').checked;
+      const err = document.getElementById('login-error');
+
+      const found = users.find(u => u.id === id && u.pass === pass);
+      if (!found) {
+        err.classList.remove('hidden');
+        document.getElementById('login-error-text').innerText = "Sicil veya şifre hatalı!";
+        return;
+      }
+
+      err.classList.add('hidden');
+
+      // Beni Hatırla Yönetimi
+      if (rememberMe) {
+        localStorage.setItem('hats_remember_me', JSON.stringify({ id: id, pass: pass }));
+      } else {
+        localStorage.removeItem('hats_remember_me');
+      }
+
+      // Aktif Oturum Kaydı (Kapanma / Yenileme Durumunda Atmaz)
+      localStorage.setItem('hats_active_session', JSON.stringify(found));
+      applyUserSession(found);
+    }
+
     function handleLogout() {
       currentUser = null;
-      document.getElementById('login-id').value = '';
-      document.getElementById('login-pass').value = '';
+      localStorage.removeItem('hats_active_session'); // Yalnızca kullanıcı Çıkış'a basınca sıfırlanır
       document.getElementById('app-header').classList.add('hidden');
       document.getElementById('operator-view').classList.add('hidden');
       document.getElementById('admin-view').classList.add('hidden');
       document.getElementById('login-view').classList.remove('hidden');
+
+      loadRememberedCredentials();
+    }
+
+    function checkPersistedSession() {
+      const saved = localStorage.getItem('hats_active_session');
+      if (saved) {
+        try {
+          const userObj = JSON.parse(saved);
+          applyUserSession(userObj);
+          return;
+        } catch (e) {}
+      }
+      loadRememberedCredentials();
+    }
+
+    function loadRememberedCredentials() {
+      const remembered = localStorage.getItem('hats_remember_me');
+      if (remembered) {
+        try {
+          const creds = JSON.parse(remembered);
+          document.getElementById('login-id').value = creds.id || '';
+          document.getElementById('login-pass').value = creds.pass || '';
+          document.getElementById('remember-me-checkbox').checked = true;
+        } catch (e) {}
+      }
     }
 
     /* --- VARDİYA SONU (SIFIRLAMA) --- */
@@ -974,6 +1077,7 @@
 
     function renderDefectsGrid() {
       const container = document.getElementById('defects-grid');
+      if (!container) return;
       container.innerHTML = '';
       let list = [...(catalog[currentZone] || [])];
       const todayStr = getLocalDateString();
@@ -1034,10 +1138,10 @@
             </div>
           </div>
           <div class="flex items-center gap-1.5 flex-shrink-0">
-            <button onclick="logDefect('${defectName}', -1)" title="Yanlış basılanı geri al" class="px-2.5 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 font-black text-xs transition flex items-center justify-center border border-slate-200">
+            <button onclick="logDefect('${defectName}', -1)" title="Geri al" class="px-2.5 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 font-black text-xs transition flex items-center justify-center border border-slate-200">
               -1
             </button>
-            <button onclick="logDefect('${defectName}', 1)" title="Eksik gir" class="px-3.5 h-10 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-90 text-white font-black text-xs shadow-md shadow-rose-600/30 transition flex items-center justify-center gap-1">
+            <button onclick="logDefect('${defectName}', 1)" title="Hata ekle" class="px-3.5 h-10 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-90 text-white font-black text-xs shadow-md shadow-rose-600/30 transition flex items-center justify-center gap-1">
               <i class="fa-solid fa-plus text-[10px]"></i>
               <span>1 Ekle</span>
             </button>
@@ -1051,7 +1155,7 @@
 
     function logDefect(defectName, change) {
       const now = new Date();
-      const dateStr = getLocalDateString(now); // Tam yerel tarih (Gece 00:00'a sabit)
+      const dateStr = getLocalDateString(now);
       const timeStr = now.toTimeString().split(' ')[0];
       const hourStr = now.getHours().toString().padStart(2, '0');
       const zoneObj = zones.find(z => z.id === currentZone);
@@ -1108,7 +1212,8 @@
         l.team === currentUser.team &&
         l.id > shiftResetTimestamp
       ).length;
-      document.getElementById('op-my-daily-count').innerText = myCount;
+      const countEl = document.getElementById('op-my-daily-count');
+      if (countEl) countEl.innerText = myCount;
     }
 
     /* --- ADMİN: BÖLGE VE KATALOG YÖNETİMİ --- */
@@ -1274,7 +1379,7 @@
             <i class="fa-solid fa-triangle-exclamation text-rose-600 flex-shrink-0 text-xs"></i>
             <span class="truncate"><b>${userName}</b> silinsin mi?</span>
           </div>
-          <div class="flex items-center gap-1.5 flex-shrink-0">
+          <div class="flex items-center gap-1 flex-shrink-0">
             <button onclick="renderPersonnelList()" class="px-2 py-1 rounded bg-white hover:bg-slate-100 text-slate-700 text-[10px] font-bold border border-slate-200 transition">
               Vazgeç
             </button>
@@ -1331,7 +1436,7 @@
       const p = overridePeriod || currentPeriod;
       const team = overrideTeam !== undefined ? overrideTeam : document.getElementById('filter-team').value;
       const now = new Date();
-      const todayStr = getLocalDateString(now); // Tam yerel gün
+      const todayStr = getLocalDateString(now);
 
       return defectLogs.filter(item => {
         if (team && team !== 'ALL' && item.team !== team) return false;
@@ -1706,7 +1811,9 @@
       XLSX.writeFile(wb, fileName);
     }
 
+    // Başlangıç tetikleyicileri
     initCloudSync();
+    checkPersistedSession();
   </script>
 </body>
 </html>
