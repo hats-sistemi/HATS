@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>HATS - Hata Anlık Takip Sistemi</title>
+  <title>HATS - Bant Eksik & Hata Takip Sistemi</title>
   
   <!-- Web Uygulaması & Tam Ekran Meta Etiketleri -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -90,8 +90,8 @@
       <i class="fa-solid fa-bolt"></i>
     </div>
     <div class="min-w-0 flex-1">
-      <p id="toast-title" class="text-[11px] font-bold text-slate-200">Canlı Hat Bildirimi</p>
-      <p id="toast-body" class="text-[10px] text-slate-400 truncate">Yeni eksik girildi</p>
+      <p id="toast-title" class="text-[11px] font-bold text-slate-200">Bant Anlık Bildirim</p>
+      <p id="toast-body" class="text-[10px] text-slate-400 truncate">Yeni bant eksikliği girildi</p>
     </div>
   </div>
 
@@ -103,7 +103,7 @@
           <span class="font-black text-xl tracking-tighter">HATS</span>
         </div>
         <h1 id="login-title" class="text-base sm:text-lg font-black text-slate-900 tracking-tight leading-tight text-center">HATA ANLIK TAKİP SİSTEMİ</h1>
-        <p id="login-sub" class="text-[10px] sm:text-xs font-semibold text-slate-400 mt-0.5 uppercase tracking-wider text-center">Montaj Hattı Görsel Kontrol Portalı</p>
+        <p id="login-sub" class="text-[10px] sm:text-xs font-semibold text-slate-400 mt-0.5 uppercase tracking-wider text-center">Üretim Bandı & Şef Takip Portalı</p>
       </div>
 
       <iframe name="login_target" id="login_target" style="display:none;width:0;height:0;border:0;"></iframe>
@@ -125,6 +125,7 @@
             <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 text-xs">
               <i class="fa-solid fa-lock"></i>
             </span>
+            <!-- iPhone Safari şifre kaydetme/öneri algılaması için optimize edildi -->
             <input type="password" id="login-pass" name="password" autocomplete="current-password" required placeholder="Şifrenizi giriniz" class="w-full bg-slate-50 border border-slate-300 rounded-xl py-2.5 pl-9 pr-10 text-xs sm:text-sm font-semibold text-slate-800 placeholder-slate-400 focus:bg-white focus:border-blue-700 focus:ring-2 focus:ring-blue-100 outline-none transition">
             <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 text-xs">
               <i class="fa-solid fa-eye" id="toggle-pass-icon"></i>
@@ -160,7 +161,8 @@
             </span>
           </div>
           <div class="flex items-center gap-1.5 mt-0.5">
-            <span id="session-badge" class="px-1.5 py-0.2 rounded text-[8px] font-black uppercase tracking-wider bg-purple-700 text-purple-100">BEYAZ YAKA / ADMİN</span>
+            <!-- Düzeltilmiş Rol Rozeti Alanı: Mor sadece Admin için -->
+            <span id="session-badge" class="px-1.5 py-0.2 rounded text-[8px] font-black uppercase tracking-wider bg-purple-700 text-purple-100">ADMİN</span>
             <span id="session-user" class="text-[10px] text-blue-200 font-medium truncate">Beyaz Yaka Admin (99001)</span>
           </div>
         </div>
@@ -213,7 +215,7 @@
 
     <div class="op-toolbar flex flex-wrap items-center justify-between gap-2 mb-2.5 px-0.5">
       <div>
-        <h3 id="current-zone-heading" class="text-xs sm:text-base font-black text-slate-900">1. Bölge Hataları</h3>
+        <h3 id="current-zone-heading" class="text-xs sm:text-base font-black text-slate-900">1. Bölge Bant Eksikleri</h3>
         <p class="text-[11px] text-slate-400 font-medium">Bantta tespit edilen eksik için "+1 Ekle" butonuna dokunun</p>
       </div>
 
@@ -222,7 +224,7 @@
           <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center text-slate-400 text-xs pointer-events-none">
             <i class="fa-solid fa-magnifying-glass"></i>
           </span>
-          <input type="text" id="defect-search-input" oninput="renderDefectsGrid()" placeholder="Hata ara (örn: bant, ray)..." class="w-full bg-white border border-slate-200 rounded-xl py-1.5 pl-8 pr-2.5 text-xs font-semibold text-slate-800 placeholder-slate-400 outline-none focus:ring-2 focus:ring-blue-600 shadow-sm">
+          <input type="text" id="defect-search-input" oninput="renderDefectsGrid()" placeholder="Bant eksikliği ara..." class="w-full bg-white border border-slate-200 rounded-xl py-1.5 pl-8 pr-2.5 text-xs font-semibold text-slate-800 placeholder-slate-400 outline-none focus:ring-2 focus:ring-blue-600 shadow-sm">
         </div>
 
         <div class="flex items-center gap-1 bg-white border border-slate-200 px-2 py-1.5 rounded-xl shadow-sm">
@@ -236,7 +238,7 @@
 
         <button onclick="openNewDefectModal()" class="bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white px-3 py-1.5 rounded-xl text-xs font-black shadow-sm flex items-center gap-1 transition">
           <i class="fa-solid fa-plus text-xs"></i>
-          <span>Yeni Hata</span>
+          <span>Yeni Bant Eksikliği</span>
         </button>
       </div>
     </div>
@@ -244,7 +246,7 @@
     <div id="defects-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 pb-20"></div>
   </main>
 
-  <!-- ================= 4. BEYAZ YAKA YÖNETİM PANELİ ================= -->
+  <!-- ================= 4. BEYAZ YAKA & ŞEF YÖNETİM PANELİ ================= -->
   <main id="admin-view" class="flex-1 max-w-7xl w-full mx-auto p-2.5 sm:p-4 space-y-3 hidden">
     
     <div id="admin-andon-banner" class="hidden p-3 bg-gradient-to-r from-rose-600 to-red-700 text-white rounded-xl shadow-lg border-2 border-rose-400 animate-pulse transition-all duration-300">
@@ -254,8 +256,8 @@
         </div>
         <div class="flex-1 min-w-0">
           <div class="flex items-center justify-between gap-1">
-            <h4 class="font-black text-xs tracking-wide">ANDON KRİTİK HATA ALARMI</h4>
-            <span class="text-[9px] font-bold bg-white/20 px-2 py-0.5 rounded-full">10 Dakikada ≥ 4 Hata (15 sn İkaz)</span>
+            <h4 class="font-black text-xs tracking-wide">ANDON KRİTİK BANT EKSİKLİK ALARMI</h4>
+            <span class="text-[9px] font-bold bg-white/20 px-2 py-0.5 rounded-full">10 Dakikada ≥ 4 Tekrar (15 sn İkaz)</span>
           </div>
           <div id="admin-andon-text" class="text-xs text-rose-100 font-medium mt-1 space-y-0.5"></div>
         </div>
@@ -310,7 +312,7 @@
         </button>
         <button onclick="openReportExportModal()" class="px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 active:scale-95 text-white text-xs font-black shadow-sm transition flex items-center gap-1.5">
           <i class="fa-solid fa-file-excel text-xs"></i>
-          <span>Rapor İndir (.xlsx)</span>
+          <span>Şef Raporu İndir (.xlsx)</span>
         </button>
       </div>
     </div>
@@ -319,11 +321,11 @@
     <div class="admin-kpi-grid grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
       <div class="admin-kpi-card bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-slate-200">
         <div class="flex items-center justify-between text-slate-400 mb-1">
-          <span class="text-[10px] font-black uppercase tracking-wider">Filtrelenen Hata</span>
+          <span class="text-[10px] font-black uppercase tracking-wider">Filtrelenen Eksik</span>
           <i class="fa-solid fa-triangle-exclamation text-rose-500 text-xs"></i>
         </div>
         <h4 id="stat-total-defects" class="text-xl sm:text-2xl font-black text-rose-600">0</h4>
-        <p class="text-[10px] text-slate-400 font-medium mt-0.5">Seçili dönemdeki eksik</p>
+        <p class="text-[10px] text-slate-400 font-medium mt-0.5">Seçili dönemdeki toplam</p>
       </div>
 
       <div class="admin-kpi-card bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-slate-200">
@@ -349,7 +351,7 @@
 
       <div class="admin-kpi-card bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-slate-200">
         <div class="flex items-center justify-between text-slate-400 mb-1">
-          <span class="text-[10px] font-black uppercase tracking-wider">En Çok Hata Alan İstasyon</span>
+          <span class="text-[10px] font-black uppercase tracking-wider">En Çok Eksik Çıkan İstasyon</span>
           <i class="fa-solid fa-bullseye text-purple-500 text-xs"></i>
         </div>
         <h4 id="stat-critical-zone" class="text-xs sm:text-sm font-black text-purple-700 truncate mt-0.5">-</h4>
@@ -362,8 +364,8 @@
       <div class="bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-slate-200">
         <div class="flex items-center justify-between mb-2">
           <div>
-            <h4 class="font-extrabold text-xs sm:text-sm text-slate-800">Pareto Analizi (Öncelikli Hatalar)</h4>
-            <p class="text-[10px] text-slate-400">En çok tekrar eden ilk 10 montaj hatası</p>
+            <h4 class="font-extrabold text-xs sm:text-sm text-slate-800">Pareto Analizi (Öncelikli Bant Eksikleri)</h4>
+            <p class="text-[10px] text-slate-400">En çok tekrar eden ilk 10 bant eksikliği</p>
           </div>
           <span class="text-[10px] font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded">Pareto</span>
         </div>
@@ -375,7 +377,7 @@
       <div class="bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-slate-200">
         <div class="flex items-center justify-between mb-2">
           <div>
-            <h4 class="font-extrabold text-xs sm:text-sm text-slate-800">Saatlik Hata Dağılımı & Zirve Tespiti</h4>
+            <h4 class="font-extrabold text-xs sm:text-sm text-slate-800">Saatlik Yoğunluk & Zirve Tespiti</h4>
             <p id="hourly-chart-sub" class="text-[10px] text-slate-400">Kırmızı noktalar ortalamanın üstündeki zirveleri gösterir</p>
           </div>
           <span id="hourly-chart-badge" class="text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded">24 Saat Analizi</span>
@@ -390,7 +392,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-3">
       <div class="bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col">
         <h4 class="font-extrabold text-xs sm:text-sm text-slate-800 mb-0.5">Ekipler Arası Dağılım</h4>
-        <p class="text-[10px] text-slate-400 mb-2">Vardiyaların hata dağılım payı</p>
+        <p class="text-[10px] text-slate-400 mb-2">Vardiyaların eksik dağılım payı</p>
         <div class="flex-1 flex items-center justify-center h-44">
           <canvas id="teamChart"></canvas>
         </div>
@@ -398,14 +400,14 @@
 
       <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col">
         <div class="p-2.5 bg-slate-50/70 border-b border-slate-200 flex justify-between items-center">
-          <h5 class="font-bold text-[11px] uppercase tracking-wider text-slate-700">Kümülatif Hata Frekans Tablosu</h5>
+          <h5 class="font-bold text-[11px] uppercase tracking-wider text-slate-700">Kümülatif Frekans Tablosu</h5>
           <span class="text-[10px] text-slate-400 font-semibold">Tüm Sıralama</span>
         </div>
         <div class="overflow-x-auto flex-1 max-h-52 overflow-y-auto no-scrollbar">
           <table class="w-full text-left text-xs">
             <thead class="bg-slate-50 text-slate-500 font-bold sticky top-0 border-b border-slate-200">
               <tr>
-                <th class="p-2">Hata Tanımı</th>
+                <th class="p-2">Bant Eksik / Hata Tanımı</th>
                 <th class="p-2">Bölge</th>
                 <th class="p-2 text-center">Adet</th>
                 <th class="p-2 text-right">Pay (%)</th>
@@ -422,7 +424,7 @@
       <div class="p-2.5 bg-slate-50/70 border-b border-slate-200 flex justify-between items-center">
         <h5 class="font-bold text-[11px] uppercase tracking-wider text-slate-700">HATS Canlı Giriş Akışı</h5>
         <span class="text-[10px] text-emerald-600 font-bold flex items-center gap-1">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Canlı Hat Akışı
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Canlı Bant Akışı
         </span>
       </div>
       <div class="overflow-x-auto max-h-52 overflow-y-auto no-scrollbar">
@@ -433,7 +435,7 @@
               <th class="p-2">Operatör</th>
               <th class="p-2">Ekip</th>
               <th class="p-2">Bölge</th>
-              <th class="p-2">Hata Tanımı</th>
+              <th class="p-2">Bant Eksik Tanımı</th>
             </tr>
           </thead>
           <tbody id="live-stream-rows" class="divide-y divide-slate-100 font-medium"></tbody>
@@ -444,7 +446,7 @@
 
   <!-- ================= 5. MODALLAR ================= -->
 
-  <!-- Modal: Rapor Dönemi ve İndirme Seçim Modalı -->
+  <!-- Modal: Rapor Dönemi ve Şef Raporu İndirme Seçim Modalı -->
   <div id="report-export-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white w-full max-w-md rounded-2xl p-5 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
       <div class="flex justify-between items-center mb-3">
@@ -453,8 +455,8 @@
             <i class="fa-solid fa-file-excel"></i>
           </div>
           <div>
-            <h3 class="font-black text-sm text-slate-800">Kalite Kontrol Raporu Al</h3>
-            <p class="text-[10px] text-slate-400">Dönemsel ortalama ve görsel grafik çubuklarıyla hazırlanır</p>
+            <h3 class="font-black text-sm text-slate-800">Şef & Yönetim Raporu Al</h3>
+            <p class="text-[10px] text-slate-400">Üretim bandı eksik analizi ve grafik çubuklarıyla hazırlanır</p>
           </div>
         </div>
         <button onclick="closeReportExportModal()" class="w-7 h-7 rounded-lg bg-slate-100 text-slate-500 hover:text-slate-800 flex items-center justify-center">
@@ -515,7 +517,7 @@
         <button onclick="closeReportExportModal()" class="w-1/3 py-2 rounded-xl text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 transition">İptal</button>
         <button onclick="executeExcelDownload()" class="w-2/3 py-2 rounded-xl text-xs font-black text-white bg-emerald-600 hover:bg-emerald-700 active:scale-95 shadow-md shadow-emerald-600/30 transition flex items-center justify-center gap-1.5">
           <i class="fa-solid fa-download text-xs"></i>
-          <span id="btn-export-text">Raporu İndir (.xlsx)</span>
+          <span id="btn-export-text">Şef Raporunu İndir (.xlsx)</span>
         </button>
       </div>
     </div>
@@ -530,7 +532,7 @@
       <h3 class="font-black text-sm text-slate-800">Vardiyayı Bitir ve Sıfırla?</h3>
       <p class="text-xs text-slate-500 mt-1 mb-4">
         Bu işlem ekranınızdaki aktif sayaçları sıfırlar. <br>
-        <b class="text-slate-700">Geçmiş verileriniz silinmez</b>, raporlarda saklanır.
+        <b class="text-slate-700">Geçmiş verileriniz silinmez</b>, şef raporlarında saklanır.
       </p>
       <div class="flex items-center justify-center gap-2">
         <button onclick="closeEndShiftModal()" class="w-1/2 py-2 rounded-xl text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 transition">Vazgeç</button>
@@ -547,7 +549,7 @@
       </div>
       <h3 class="font-black text-sm text-slate-800">Tüm Verileri Temizle?</h3>
       <p class="text-xs text-slate-500 mt-1 mb-4">
-        Bulutta ve cihazlarda kayıtlı tüm hata verileri <b class="text-rose-600">kalıcı olarak sıfırlanacaktır</b>.
+        Bulutta ve cihazlarda kayıtlı tüm bant eksiklik verileri <b class="text-rose-600">kalıcı olarak sıfırlanacaktır</b>.
       </p>
       <div class="flex items-center justify-center gap-2">
         <button onclick="closeClearDataModal()" class="w-1/2 py-2 rounded-xl text-xs font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 transition">Vazgeç</button>
@@ -561,8 +563,8 @@
     <div class="bg-white w-full max-w-2xl rounded-2xl p-4 shadow-2xl border border-slate-200 max-h-[90vh] flex flex-col">
       <div class="flex justify-between items-center mb-3">
         <div>
-          <h3 class="font-black text-sm text-slate-800">Bölge & Hata Kataloğu Yönetimi</h3>
-          <p class="text-[10px] text-slate-400">Yeni istasyonlar ekleyin veya mevcut hata tanımlarını düzenleyin</p>
+          <h3 class="font-black text-sm text-slate-800">Bölge & Bant Eksiklik Kataloğu Yönetimi</h3>
+          <p class="text-[10px] text-slate-400">Yeni istasyonlar ekleyin veya mevcut bant eksiklik tanımlarını düzenleyin</p>
         </div>
         <button onclick="closeCatalogManagementModal()" class="w-7 h-7 rounded-lg bg-slate-100 text-slate-500 hover:text-slate-800 flex items-center justify-center">
           <i class="fa-solid fa-xmark text-xs"></i>
@@ -589,8 +591,8 @@
       <div class="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-base mb-2">
         <i class="fa-solid fa-circle-plus"></i>
       </div>
-      <h3 class="font-black text-sm text-slate-800">Yeni Hata Tanımı Ekle</h3>
-      <p class="text-xs text-slate-500 mb-3">Listede bulunmayan yeni montaj hatasını kataloğa kaydedin.</p>
+      <h3 class="font-black text-sm text-slate-800">Yeni Bant Eksikliği Ekle</h3>
+      <p class="text-xs text-slate-500 mb-3">Listede bulunmayan yeni bant eksikliği tanımını kataloğa kaydedin.</p>
       
       <div class="space-y-2">
         <div>
@@ -598,7 +600,7 @@
           <select id="new-defect-zone-select" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-1.5 text-xs font-bold text-slate-800"></select>
         </div>
         <div>
-          <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-0.5">Hata Açıklaması</label>
+          <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-0.5">Bant Eksik Açıklaması</label>
           <input type="text" id="new-defect-name-input" placeholder="Örn: Turuncu tutucu araymond arası bant" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-1.5 text-xs font-semibold text-slate-800 outline-none focus:ring-2 focus:ring-emerald-500">
         </div>
       </div>
@@ -633,7 +635,7 @@
             <option value="Ekip 1">Ekip 1 (Operatör)</option>
             <option value="Ekip 2">Ekip 2 (Operatör)</option>
             <option value="Ekip 3">Ekip 3 (Operatör)</option>
-            <option value="Beyaz Yaka">Beyaz Yaka (Admin)</option>
+            <option value="Beyaz Yaka">Beyaz Yaka (Şef / Admin)</option>
           </select>
         </div>
         <button onclick="addNewUser()" class="w-full bg-blue-900 hover:bg-blue-800 text-white py-1.5 rounded-lg text-xs font-bold transition">Personeli Kaydet & Tüm Cihazlara Eşitle</button>
@@ -918,7 +920,7 @@
         if (msg.defect.id > clearEpoch && !defectLogs.some(l => l.id === msg.defect.id)) {
           defectLogs.push(msg.defect);
           localStorage.setItem('hats_defect_logs', JSON.stringify(defectLogs));
-          showToastNotification("Canlı Hat Girişi", `${msg.defect.operator} (${msg.defect.team}): ${msg.defect.defectName} (+1)`);
+          showToastNotification("Canlı Bant Girişi", `${msg.defect.operator} (${msg.defect.team}): ${msg.defect.defectName} (+1)`);
           playClickFeedback(true);
           if (currentUser && currentUser.role === 'admin') renderAdminStats();
           else if (currentUser) renderDefectsGrid();
@@ -1023,7 +1025,7 @@
       document.getElementById('session-user').innerText = `${user.name} (${user.id})`;
       const badge = document.getElementById('session-badge');
       if (user.role === 'admin') {
-        badge.innerText = 'BEYAZ YAKA / ADMİN';
+        badge.innerText = 'ADMİN';
         badge.className = 'px-1.5 py-0.2 rounded text-[8px] font-black uppercase tracking-wider bg-purple-700 text-purple-100';
       } else {
         badge.innerText = `OPERATÖR (${(user.team || 'Ekip 1').toUpperCase()})`;
@@ -1169,7 +1171,7 @@
       currentZone = zoneId;
       renderZoneTabs();
       const currentZoneObj = zones.find(z => z.id === zoneId);
-      document.getElementById('current-zone-heading').innerText = currentZoneObj ? currentZoneObj.name : "Montaj Hataları";
+      document.getElementById('current-zone-heading').innerText = currentZoneObj ? `${currentZoneObj.name} Bant Eksikleri` : "Bant Eksikleri";
       renderDefectsGrid();
     }
 
@@ -1218,7 +1220,7 @@
         container.innerHTML = `
           <div class="col-span-full py-8 text-center text-slate-400">
             <i class="fa-solid fa-magnifying-glass text-xl mb-1 block"></i>
-            <p class="text-xs font-bold">"${searchVal}" aramasına uygun hata tanımı bulunamadı.</p>
+            <p class="text-xs font-bold">"${searchVal}" aramasına uygun bant eksikliği bulunamadı.</p>
           </div>
         `;
         return;
@@ -1252,7 +1254,7 @@
             <button onclick="logDefect('${defectName}', -1)" title="Geri al" class="px-2.5 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 font-black text-xs transition flex items-center justify-center border border-slate-200">
               -1
             </button>
-            <button onclick="logDefect('${defectName}', 1)" title="Hata ekle" class="px-3.5 h-10 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-90 text-white font-black text-xs shadow-md shadow-rose-600/30 transition flex items-center justify-center gap-1">
+            <button onclick="logDefect('${defectName}', 1)" title="Bant eksikliği ekle" class="px-3.5 h-10 rounded-xl bg-rose-600 hover:bg-rose-700 active:scale-90 text-white font-black text-xs shadow-md shadow-rose-600/30 transition flex items-center justify-center gap-1">
               <i class="fa-solid fa-plus text-[10px]"></i>
               <span>1 Ekle</span>
             </button>
@@ -1381,13 +1383,13 @@
         box.innerHTML = `
           <div class="flex justify-between items-center mb-1.5 pb-1.5 border-b border-slate-200">
             <h5 class="font-black text-xs text-slate-800">${z.name}</h5>
-            <span class="text-[9px] bg-blue-100 text-blue-800 px-1.5 py-0.2 rounded font-bold">${(catalog[z.id] || []).length} Hata</span>
+            <span class="text-[9px] bg-blue-100 text-blue-800 px-1.5 py-0.2 rounded font-bold">${(catalog[z.id] || []).length} Eksik Tanımı</span>
           </div>
           <div class="space-y-1 mb-2 max-h-28 overflow-y-auto no-scrollbar">
-            ${defectItemsHtml || '<span class="text-[10px] text-slate-400">Henüz hata tanımı yok.</span>'}
+            ${defectItemsHtml || '<span class="text-[10px] text-slate-400">Henüz tanımlı eksik yok.</span>'}
           </div>
           <div class="flex gap-1.5 mt-1.5">
-            <input type="text" id="add-def-input-${z.id}" placeholder="Yeni hata ekle..." class="flex-1 bg-white border border-slate-300 rounded-lg p-1.5 text-xs">
+            <input type="text" id="add-def-input-${z.id}" placeholder="Yeni bant eksikliği ekle..." class="flex-1 bg-white border border-slate-300 rounded-lg p-1.5 text-xs">
             <button onclick="addDefectToZone(${z.id})" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">Ekle</button>
           </div>
         `;
@@ -1583,16 +1585,15 @@
       if (statusText) {
         if (currentPeriod === 'daily') {
           statusText.innerText = total > 0 
-            ? `Bugün kaydedilen: ${total} hata | Bulutta toplam: ${totalAllTime} kayıt saklanıyor.`
+            ? `Bugün kaydedilen eksik: ${total} | Bulutta toplam: ${totalAllTime} kayıt saklanıyor.`
             : `Bugün henüz yeni kayıt yok. (Bulutta toplam ${totalAllTime} kayıt saklanıyor).`;
         } else {
-          statusText.innerText = `Listelenen: ${total} hata (${currentPeriod.toUpperCase()} dönem) | Bulut senkron aktif.`;
+          statusText.innerText = `Listelenen eksik: ${total} (${currentPeriod.toUpperCase()} dönem) | Bulut senkron aktif.`;
         }
       }
 
       document.getElementById('stat-total-defects').innerText = total;
 
-      // 1. DÖNEME ÖZGÜ AKILLI ORTALAMA VE DURUM ROZETLERİ
       let avgTitle = "Dönemsel Ortalama";
       let avgDisplay = "0.0";
       let avgSub = "Hesaplanıyor...";
@@ -1613,7 +1614,7 @@
 
         const maxHourVal = Math.max(...hourCounts, 0);
         if (maxHourVal > hourlyAvg * 1.6 && total >= 5) {
-          avgBadge = `<span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-rose-100 text-rose-700">🚨 Zirve Var</span>`;
+          avgBadge = `<span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-rose-100 text-rose-700">🚨 Yoğunluk Var</span>`;
         } else if (total > 0) {
           avgBadge = `<span class="px-1.5 py-0.5 rounded text-[9px] font-black bg-emerald-100 text-emerald-700">✔ Dengeli</span>`;
         }
@@ -1721,24 +1722,21 @@
       });
     }
 
-    /* AKILLI ZİRVE RENKLENDİRMELİ SAATLİK GRAFİK */
     function updateHourlyChart(logs, hourCounts) {
       const ctx = document.getElementById('hourlyChart').getContext('2d');
       const hours = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0') + ":00");
 
-      // Aktif saatlerin ortalamasını al
       const activeHours = hourCounts.filter(c => c > 0).length || 1;
       const totalErrors = hourCounts.reduce((a, b) => a + b, 0);
       const activeAvg = totalErrors / activeHours;
 
-      // Ortalamayı 1.6 kat aşan saatleri kırmızı zirve noktası yap
       const pointColors = hourCounts.map(c => (c > activeAvg * 1.6 && c >= 3) ? '#dc2626' : '#2563eb');
       const pointRadii = hourCounts.map(c => (c > activeAvg * 1.6 && c >= 3) ? 6 : 3);
 
       const subEl = document.getElementById('hourly-chart-sub');
       const badgeEl = document.getElementById('hourly-chart-badge');
       if (currentPeriod === 'daily') {
-        subEl.innerText = `Aktif saatlik ortalama: ${activeAvg.toFixed(1)} hata/saat`;
+        subEl.innerText = `Aktif saatlik ortalama: ${activeAvg.toFixed(1)} eksik/saat`;
         badgeEl.innerText = "Günlük Saatlik Akış";
         badgeEl.className = "text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded";
       } else {
@@ -1753,7 +1751,7 @@
         data: {
           labels: hours,
           datasets: [{
-            label: 'Saatlik Hata',
+            label: 'Saatlik Eksik',
             data: hourCounts,
             borderColor: '#2563eb',
             backgroundColor: 'rgba(37, 99, 235, 0.16)',
@@ -1795,7 +1793,7 @@
       });
     }
 
-    /* --- AKILLI ORTALAMA BAZLI GRAFİK MOTORU (EXCELJS) --- */
+    /* --- PROFESYONEL ŞEF RAPORU MOTORU (EXCELJS) --- */
     function openReportExportModal() {
       selectExportPeriod('daily');
       document.getElementById('report-export-modal').classList.remove('hidden');
@@ -1806,10 +1804,10 @@
       selectedExportPeriod = period;
       const periods = ['daily', 'weekly', 'monthly', 'all'];
       const titles = {
-        daily: 'Günlük Raporu İndir (.xlsx)',
-        weekly: 'Haftalık Raporu İndir (.xlsx)',
-        monthly: 'Aylık Raporu İndir (.xlsx)',
-        all: 'Tüm Arşivi İndir (.xlsx)'
+        daily: 'Günlük Şef Raporunu İndir (.xlsx)',
+        weekly: 'Haftalık Şef Raporunu İndir (.xlsx)',
+        monthly: 'Aylık Şef Raporunu İndir (.xlsx)',
+        all: 'Tüm Arşiv Şef Raporunu İndir (.xlsx)'
       };
 
       periods.forEach(p => {
@@ -1868,26 +1866,26 @@
       const logs = getFilteredLogs(selectedExportPeriod, teamChoice);
 
       if (logs.length === 0) {
-        alert("Seçilen döneme ait kaydedilmiş hata verisi bulunamadı!");
+        alert("Seçilen döneme ait kaydedilmiş bant eksikliği verisi bulunamadı!");
         return;
       }
 
       const periodNames = {
-        daily: "GÜNLÜK KALİTE RAPORU (BUGÜN)",
-        weekly: "HAFTALIK KALİTE RAPORU (SON 7 GÜN)",
-        monthly: "AYLIK KALİTE RAPORU (SON 30 GÜN)",
-        all: "TÜM GEÇMİŞ KALİTE ARŞİVİ"
+        daily: "GÜNLÜK ÜRETİM BANT EKSİK RAPORU (BUGÜN)",
+        weekly: "HAFTALIK ÜRETİM BANT EKSİK RAPORU (SON 7 GÜN)",
+        monthly: "AYLIK ÜRETİM BANT EKSİK RAPORU (SON 30 GÜN)",
+        all: "TÜM GEÇMİŞ BANT EKSİK ARŞİVİ"
       };
 
       const filePrefixes = {
-        daily: "HATS_Gunluk_Rapor",
-        weekly: "HATS_Haftalik_Rapor",
-        monthly: "HATS_Aylik_Rapor",
-        all: "HATS_Tum_Arsiv_Raporu"
+        daily: "HATS_Sef_Gunluk_Rapor",
+        weekly: "HATS_Sef_Haftalik_Rapor",
+        monthly: "HATS_Sef_Aylik_Rapor",
+        all: "HATS_Sef_Tum_Arsiv_Raporu"
       };
 
       const wb = new ExcelJS.Workbook();
-      wb.creator = "HATS Kalite Takip Sistemi";
+      wb.creator = "HATS Üretim Bandı Takip Sistemi";
       wb.created = new Date();
 
       const total = logs.length;
@@ -1899,9 +1897,9 @@
       logs.forEach(l => { zoneCounts[l.zoneName] = (zoneCounts[l.zoneName] || 0) + 1; });
       const topZoneName = Object.keys(zoneCounts).reduce((a, b) => zoneCounts[a] > zoneCounts[b] ? a : b, "-");
 
-      /* ================= 1. SAYFA: YÖNETİCİ KALİTE DASHBOARD'U ================= */
+      /* ================= 1. SAYFA: ŞEF & YÖNETİM DASHBOARD'U ================= */
       if (teamChoice === 'ALL') {
-        const wsSummary = wb.addWorksheet('📊 Kalite Yönetici Paneli', {
+        const wsSummary = wb.addWorksheet('📊 Şef Yönetici Paneli', {
           views: [{ showGridLines: true }]
         });
 
@@ -1914,21 +1912,18 @@
           { width: 34 }  // F
         ];
 
-        // 1. Ana Başlık Banner'ı
         wsSummary.mergeCells('B2:F3');
         const mainHeader = wsSummary.getCell('B2');
-        mainHeader.value = "HATS - HATA ANLIK TAKİP SİSTEMİ | KALİTE KONTROL YÖNETİCİ DASHBOARD'U";
+        mainHeader.value = "HATS - ÜRETİM BANDI EKSİK TAKİP SİSTEMİ | ŞEF & YÖNETİM DASHBOARD'U";
         styleCell(mainHeader, { bg: 'FF0F172A', color: 'FFFFFFFF', size: 12, bold: true, hAlign: 'center' });
 
-        // Bilgi Şeridi
         wsSummary.mergeCells('B4:F4');
         const infoCell = wsSummary.getCell('B4');
-        infoCell.value = `Dönem: ${periodNames[selectedExportPeriod]}  |  Tarih: ${new Date().toLocaleString('tr-TR')}  |  Yetkili: Beyaz Yaka Admin (99001)`;
+        infoCell.value = `Dönem: ${periodNames[selectedExportPeriod]}  |  Tarih: ${new Date().toLocaleString('tr-TR')}  |  Sorumlu: Beyaz Yaka / Şef`;
         styleCell(infoCell, { bg: 'FFF1F5F9', color: 'FF475569', size: 9, bold: true, hAlign: 'center', border: true });
 
-        // 2. Renkli Dashboard KPI Kartları
         wsSummary.mergeCells('B6:C6');
-        wsSummary.getCell('B6').value = "TOPLAM TESPİT EDİLEN EKSİK";
+        wsSummary.getCell('B6').value = "TOPLAM TESPİT EDİLEN BANT EKSİĞİ";
         styleCell(wsSummary.getCell('B6'), { bg: 'FFFEE2E2', color: 'FF991B1B', size: 9, bold: true, hAlign: 'center' });
         wsSummary.mergeCells('B7:C8');
         const kpiTotal = wsSummary.getCell('B7');
@@ -1944,22 +1939,21 @@
         styleCell(kpiAvg, { bg: 'FFFEF3C7', color: 'FFD97706', size: 16, bold: true, hAlign: 'center', border: true });
 
         wsSummary.mergeCells('E6:F6');
-        wsSummary.getCell('E6').value = "EN ÇOK HATA ÇIKAN BÖLGE";
+        wsSummary.getCell('E6').value = "EN ÇOK EKSİK ÇIKAN İSTASYON";
         styleCell(wsSummary.getCell('E6'), { bg: 'FFDBEAFE', color: 'FF1E40AF', size: 9, bold: true, hAlign: 'center' });
         wsSummary.mergeCells('E7:F8');
         const kpiZone = wsSummary.getCell('E7');
         kpiZone.value = topZoneName;
         styleCell(kpiZone, { bg: 'FFDBEAFE', color: 'FF1D4ED8', size: 11, bold: true, hAlign: 'center', wrap: true, border: true });
 
-        // 3. Bölüm: 📊 PARETO ANALİZİ (TOPLAMA GÖRE ORANTILI ÇUBUK)
         let curRow = 10;
         wsSummary.mergeCells(`B${curRow}:F${curRow}`);
         const sec1 = wsSummary.getCell(`B${curRow}`);
-        sec1.value = "📊 PARETO ANALİZİ - GENEL HATA PAYI GRAFİĞİ (EN KRİTİK 10 HATA)";
+        sec1.value = "📊 PARETO ANALİZİ - BANT EKSİKLİK PAYI GRAFİĞİ (EN KRİTİK 10 EKSİK)";
         styleCell(sec1, { bg: 'FF1E293B', color: 'FFFFFFFF', size: 10, bold: true, hAlign: 'center' });
 
         curRow++;
-        const pHeaders = ["Sıra & Hata Tanımı", "Montaj İstasyonu", "Adet", "Genel Payı (%)", "Görsel Hata Payı Çubuğu"];
+        const pHeaders = ["Sıra & Bant Eksik Tanımı", "Montaj İstasyonu", "Adet", "Genel Payı (%)", "Görsel Eksik Payı Çubuğu"];
         pHeaders.forEach((h, idx) => {
           const colLetter = ['B', 'C', 'D', 'E', 'F'][idx];
           const cell = wsSummary.getCell(`${colLetter}${curRow}`);
@@ -2004,17 +1998,16 @@
           styleCell(cBar, { bg: rowBg, size: 9, font: 'Consolas', bold: true, color: 'FFDC2626', border: true });
         });
 
-        // 4. Bölüm: ⏰ 24 SAATLİK ORTALAMA BAZLI YOĞUNLUK GRAFİĞİ (GÜNLÜK ORTALAMA İNDEKSLİ)
         curRow += 2;
         wsSummary.mergeCells(`B${curRow}:F${curRow}`);
         const sec2 = wsSummary.getCell(`B${curRow}`);
         sec2.value = selectedExportPeriod === 'daily' 
-          ? "⏰ 24 SAATLİK HATA YOĞUNLUĞU (GÜN İÇİ SAATLİK ORTALAMA SAPMA ANALİZİ)"
-          : `⏰ 24 SAATLİK HATA DAĞILIMI (${selectedExportPeriod.toUpperCase()} DÖNEM)`;
+          ? "⏰ 24 SAATLİK BANT EKSİKLİK YOĞUNLUĞU (GÜN İÇİ SAATLİK ORTALAMA SAPMA ANALİZİ)"
+          : `⏰ 24 SAATLİK BANT EKSİK DAĞILIMI (${selectedExportPeriod.toUpperCase()} DÖNEM)`;
         styleCell(sec2, { bg: 'FF1E293B', color: 'FFFFFFFF', size: 10, bold: true, hAlign: 'center' });
 
         curRow++;
-        ["Saat Aralığı", "Tespit Edilen Hata", "Ortalama Durumu", "Saatlik Payı (%)", "Görsel Sapma Grafiği"].forEach((h, idx) => {
+        ["Saat Aralığı", "Tespit Edilen Eksik", "Ortalama Durumu", "Saatlik Payı (%)", "Görsel Sapma Grafiği"].forEach((h, idx) => {
           const colLetter = ['B', 'C', 'D', 'E', 'F'][idx];
           const cell = wsSummary.getCell(`${colLetter}${curRow}`);
           cell.value = h;
@@ -2052,7 +2045,7 @@
 
           const cStatus = wsSummary.getCell(`D${curRow}`);
           if (hCount === 0) {
-            cStatus.value = "Sakin (0 Hata)";
+            cStatus.value = "Sakin (0 Eksik)";
             styleCell(cStatus, { bg: rowBg, size: 9, hAlign: 'center', color: 'FF94A3B8', border: true });
           } else if (isPeak) {
             const diffPct = (((hCount - activeHourlyAvg) / activeHourlyAvg) * 100).toFixed(0);
@@ -2072,15 +2065,14 @@
           styleCell(cBar, { bg: rowBg, size: 9, font: 'Consolas', bold: hasError, color: isPeak ? 'FFDC2626' : (hasError ? 'FF2563EB' : 'FFCBD5E1'), border: true });
         }
 
-        // 5. Bölüm: 👥 VARDİYA / EKİP KALİTE DAĞILIMI
         curRow += 2;
         wsSummary.mergeCells(`B${curRow}:F${curRow}`);
         const sec3 = wsSummary.getCell(`B${curRow}`);
-        sec3.value = "👥 VARDİYA / EKİP GERÇEK HATA PAYI DAĞILIMI";
+        sec3.value = "👥 VARDİYA / EKİP BANT EKSİKLİK DAĞILIMI";
         styleCell(sec3, { bg: 'FF1E293B', color: 'FFFFFFFF', size: 10, bold: true, hAlign: 'center' });
 
         curRow++;
-        ["Ekip Adı", "Çalışan Operatör", "Toplam Hata", "Payı (%)", "Görsel Vardiya Dağılım Çubuğu"].forEach((h, idx) => {
+        ["Ekip Adı", "Çalışan Operatör", "Toplam Eksik", "Payı (%)", "Görsel Vardiya Dağılım Çubuğu"].forEach((h, idx) => {
           const colLetter = ['B', 'C', 'D', 'E', 'F'][idx];
           const cell = wsSummary.getCell(`${colLetter}${curRow}`);
           cell.value = h;
@@ -2129,18 +2121,17 @@
 
         wsTeam.mergeCells('B2:G3');
         const teamBanner = wsTeam.getCell('B2');
-        teamBanner.value = `${teamName.toUpperCase()} - KALİTE PERFORMANS VE HATA DETAYLARI`;
+        teamBanner.value = `${teamName.toUpperCase()} - ÜRETİM BANT EKSİKLİK VE PERFORMANS DETAYLARI`;
         styleCell(teamBanner, { bg: 'FF0F172A', color: 'FFFFFFFF', size: 12, bold: true, hAlign: 'center' });
 
         wsTeam.mergeCells('B4:G4');
         const teamSub = wsTeam.getCell('B4');
-        teamSub.value = `Dönem: ${periodNames[selectedExportPeriod]}  |  Bu Ekibin Toplam Hatası: ${teamLogs.length} Adet  |  Hata Payı: %${total > 0 ? ((teamLogs.length / total) * 100).toFixed(1) : 0}`;
+        teamSub.value = `Dönem: ${periodNames[selectedExportPeriod]}  |  Bu Ekibin Toplam Eksikliği: ${teamLogs.length} Adet  |  Eksik Payı: %${total > 0 ? ((teamLogs.length / total) * 100).toFixed(1) : 0}`;
         styleCell(teamSub, { bg: 'FFF8FAFC', color: 'FF334155', size: 9, bold: true, hAlign: 'center', border: true });
 
-        // Bu ekibin en çok yaptığı ilk 5 hata
         wsTeam.mergeCells('B6:G6');
         const top5Title = wsTeam.getCell('B6');
-        top5Title.value = `BU EKİBİN EN ÇOK YAPTIĞI İLK 5 MONTAJ HATASI`;
+        top5Title.value = `BU EKİBİN EN ÇOK YAŞADIĞI İLK 5 BANT EKSİKLİĞİ`;
         styleCell(top5Title, { bg: 'FFFEE2E2', color: 'FF991B1B', size: 9, bold: true, hAlign: 'center', border: true });
 
         const tFreq = {};
@@ -2163,10 +2154,10 @@
         const detailStartRow = 13;
         wsTeam.mergeCells(`B${detailStartRow}:G${detailStartRow}`);
         const detailHeader = wsTeam.getCell(`B${detailStartRow}`);
-        detailHeader.value = "SAAT BAZLI TÜM HATA KAYIT LİSTESİ";
+        detailHeader.value = "SAAT BAZLI TÜM BANT EKSİKLİK KAYIT LİSTESİ";
         styleCell(detailHeader, { bg: 'FF1E3A8A', color: 'FFFFFFFF', size: 10, bold: true, hAlign: 'center' });
 
-        const dCols = ["Tarih", "Saat", "İstasyon / Bölge", "Hata Tanımı", "Operatör Adı", "Sicil No"];
+        const dCols = ["Tarih", "Saat", "İstasyon / Bölge", "Bant Eksik Tanımı", "Operatör Adı", "Sicil No"];
         dCols.forEach((dh, idx) => {
           const c = wsTeam.getCell(detailStartRow + 1, idx + 2);
           c.value = dh;
@@ -2201,7 +2192,7 @@
           await navigator.share({
             files: [file],
             title: fileName,
-            text: `HATS Kalite Kontrol Raporu (${periodNames[selectedExportPeriod]})`
+            text: `HATS Şef Raporu (${periodNames[selectedExportPeriod]})`
           });
           return;
         }
